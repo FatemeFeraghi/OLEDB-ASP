@@ -32,11 +32,36 @@ namespace OLEDB
             ListBoxCourse.DataValueField = "RefCourse";
             ListBoxCourse.DataSource = readStudents;
             ListBoxCourse.DataBind();
+
+            //@ means start sql
+            //Test the connection with hard coding!
+            string sql = "SELECT * FROM Courses WHERE Teacher=@teach and Duration <@dur ";
+            OleDbCommand myCommandTest = new OleDbCommand(sql, myConnection);
+            OleDbParameter myParam = new OleDbParameter("teach", "Houria Houmel");
+            myParam.DbType = System.Data.DbType.String;
+
+            myCommandTest.Parameters.Add(myParam);
+            myCommandTest.Parameters.AddWithValue("dur", 50);
+
+            OleDbDataReader rdTest = myCommandTest.ExecuteReader();
+            gridTest.DataSource = rdTest;
+            gridTest.DataBind();
+
         }
 
         protected void ListBoxCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
+            myCommand = new OleDbCommand("SELECT * FROM Courses WHERE RefCourse=@ref", myConnection);
+            myCommand.Parameters.AddWithValue("ref", ListBoxCourse.SelectedItem.Value);
 
+            readStudents = myCommand.ExecuteReader();
+
+            //if (readStudents.Read())
+            //{
+            //    TextBoxNumber.Text = readStudents["Number"].ToString();
+            //}
+
+            //readStudents.Close();
         }
 
         protected void ButtonUpdate_Click(object sender, EventArgs e)
