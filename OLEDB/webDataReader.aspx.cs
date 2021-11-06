@@ -21,32 +21,34 @@ namespace OLEDB
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            myConnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source =" + Server.MapPath("~/App_Data/College.mdb"));
-            myConnection.Open();
+            if(!Page.IsPostBack)
+            {
+                myConnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source =" + Server.MapPath("~/App_Data/College.mdb"));
+                myConnection.Open();
 
-            myCommand = new OleDbCommand("SELECT Number, RefCourse FROM Courses Order by [Number]", myConnection);
-            //Execute DataReader
-            readStudents = myCommand.ExecuteReader();
+                myCommand = new OleDbCommand("SELECT [Number], RefCourse FROM Courses Order by [Number]", myConnection);
+                //Execute DataReader
+                readStudents = myCommand.ExecuteReader();
 
-            ListBoxCourse.DataTextField = "Number";
-            ListBoxCourse.DataValueField = "RefCourse";
-            ListBoxCourse.DataSource = readStudents;
-            ListBoxCourse.DataBind();
+                ListBoxCourse.DataTextField = "Number";
+                ListBoxCourse.DataValueField = "RefCourse";
+                ListBoxCourse.DataSource = readStudents;
+                ListBoxCourse.DataBind();
 
-            //@ means start sql
-            //Test the connection with hard coding!
-            string sql = "SELECT * FROM Courses WHERE Teacher=@teach and Duration <@dur ";
-            OleDbCommand myCommandTest = new OleDbCommand(sql, myConnection);
-            OleDbParameter myParam = new OleDbParameter("teach", "Houria Houmel");
-            myParam.DbType = System.Data.DbType.String;
+                //@ means start sql
+                //Test the connection with hard coding!
+                string sql = "SELECT * FROM Courses WHERE Teacher=@teach and Duration <@dur ";
+                OleDbCommand myCommandTest = new OleDbCommand(sql, myConnection);
+                OleDbParameter myParam = new OleDbParameter("teach", "Houria Houmel");
+                myParam.DbType = System.Data.DbType.String;
 
-            myCommandTest.Parameters.Add(myParam);
-            myCommandTest.Parameters.AddWithValue("dur", 50);
+                myCommandTest.Parameters.Add(myParam);
+                myCommandTest.Parameters.AddWithValue("dur", 50);
 
-            OleDbDataReader rdTest = myCommandTest.ExecuteReader();
-            gridTest.DataSource = rdTest;
-            gridTest.DataBind();
-
+                OleDbDataReader rdTest = myCommandTest.ExecuteReader();
+                gridTest.DataSource = rdTest;
+                gridTest.DataBind();
+            }
         }
 
         protected void ListBoxCourse_SelectedIndexChanged(object sender, EventArgs e)
@@ -56,16 +58,38 @@ namespace OLEDB
 
             readStudents = myCommand.ExecuteReader();
 
-            //if (readStudents.Read())
-            //{
-            //    TextBoxNumber.Text = readStudents["Number"].ToString();
-            //}
+            if (readStudents.Read())
+            {
+                TextBoxNumber.Text = readStudents["Number"].ToString();
+                TextBoxTitle.Text = readStudents["Title"].ToString();
+                TextBoxDuration.Text = readStudents["Duration"].ToString();
+                TextBoxTeacher.Text = readStudents["Teacher"].ToString();
+                TextBoxDescription.Text = readStudents["Description"].ToString();
+            }
 
-            //readStudents.Close();
+            readStudents.Close();
+
+            myCommand.CommandText = "SELECT StudentName as [Names], BirthDate as [Birth Dates], Telephone, Average, Email from Students WHERE ReferCourse =@ref";
+
+            readStudents = myCommand.ExecuteReader();
+            GridViewResults.DataSource = readStudents;
+            GridViewResults.DataBind();
         }
 
         protected void ButtonUpdate_Click(object sender, EventArgs e)
         {
+            int refCourses = Convert.ToInt32(ListBoxCourse.SelectedItem.Value);
+            string sql = "UPDATE Courses SET Duration=@dur, Teacher=@tea, Description=@des WHERE RefCourse=@courseId";
+            OleDbCommand myCommand = new OleDbCommand(sql, myConnection);
+            myCommand.Parameters.AddWithValue("dur", Convert.ToInt32(TextBoxDuration.Text));
+            myCommand.Parameters.AddWithValue("tea", TextBoxTeacher.Text);
+            myCommand.Parameters.AddWithValue("des", TextBoxDescription.Text);
+            myCommand.Parameters.AddWithValue("courseId", refCourses);
+
+            //This function runs the query but don't return any data
+            int result = myCommand.ExecuteNonQuery();
+
+            Response.Write("<script>alert(\"Updated\");</script>");
 
         }
     }

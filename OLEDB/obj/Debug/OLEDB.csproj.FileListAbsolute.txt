@@ -50,15 +50,9 @@ C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\roslyn\vbc.exe.config
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\roslyn\vbc.rsp
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\roslyn\VBCSCompiler.exe
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.csproj.AssemblyReference.cache
-C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.csproj.CoreCompileInputs.cache
-C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.csproj.CopyComplete
-C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.dll
-C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.pdb
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\FireSharp.dll
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\FireSharp.Serialization.JsonNet.dll
+C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Microsoft.Threading.Tasks.dll
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Microsoft.Threading.Tasks.Extensions.Desktop.dll
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Microsoft.Threading.Tasks.Extensions.dll
@@ -73,4 +67,10 @@ C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Newtonsoft.Json.xml
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\RestSharp.xml
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\System.Net.Http.Extensions.xml
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\System.Net.Http.Primitives.xml
+C:\Users\Fateme\source\repos\OLEDB\OLEDB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.csproj.App.config
+C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.csproj.CoreCompileInputs.cache
+C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.csproj.CopyComplete
+C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.dll
+C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.pdb
+C:\Users\Fateme\source\repos\OLEDB\OLEDB\obj\Debug\OLEDB.csproj.AssemblyReference.cache

@@ -7,47 +7,56 @@
     <title>WEB DATA READER</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
 
     <style type="text/css">
         .auto-style1 {
-        text-decoration: underline;
-        text-align: center;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #4B3869;
+            color:white;
+            padding: 15px;
         }
         .auto-style4 {
-        width: 258px;
+            width: 258px;
         }
         .auto-style6 {
-        width: 99px;
+            width: 99px;
         }
         .auto-style7 {
-        height: 23px;
-        width: 99px;
+            height: 23px;
+            width: 99px;
         }
         .auto-style5 {
-        height: 23px;
+            height: 23px;
         }
         .auto-style8 {
-        width: 99px;
-        height: 26px;
+            width: 99px;
+            height: 26px;
         }
         .auto-style9 {
-        height: 26px;
+            height: 26px;
         }
         .auto-style10 {
-        width: 600px;
+            width: 600px;
         }
         .auto-style11 {
-        text-align: center;
+            text-align: center;
+        }
+        .auto-style12{
+            width: 800px;
+        }
+        .margin-top{
+            margin-top: 40px;
         }
 </style>
 </head>
 <body>
-    <h1 class="auto-style1">THE DATAREADER OBJECT</h1>
+    <h2 class="auto-style1" >The DataReader Object</h2>
 
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" class="margin-top">
         <div>
-
              <table align="center" class="auto-style10">
 
                 <tr>
@@ -101,7 +110,7 @@
                                 
                                  <tr>
 
-                                    <td class="auto-style8">
+                                    <td>
                                        <asp:Label ID="lblTeacher" runat="server" Text="Teacher: "></asp:Label>
 
                                     </td>
@@ -111,7 +120,7 @@
                                     </td>
                                 </tr>
 
-                                 <tr class="table-success">
+                                 <tr>
 
                                     <td class="auto-style8">
                                        <asp:Label ID="lblDescription" runat="server" Text="Description: "></asp:Label>
@@ -133,13 +142,12 @@
 
                 <tr>
                     <td colspan="3" class="auto-style11">
-                        <asp:GridView ID="GridViewResults" BackColor="White" BorderColor="YellowGreen" BorderStyle="None" BorderWidth="1px" CellPadding="4" GridLines="Vertical" runat="server">
-                            <AlternatingRowStyle BackColor="#161E54"/>
-                            <FooterStyle BackColor="#FF5151" ForeColor="Black"/>
-                            <HeaderStyle BackColor="#161E54" ForeColor="White" Font-Bold="true"/>
-                            <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center"/>
-                            <SelectedRowStyle backColor="#FEF5ED" ForeColor="White" Font-Bold="true"/>
-                         <%--  88E0EF FF5151 --%>
+                        <asp:GridView ID="GridViewResults" class="margin-top" BackColor="White" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" CellPadding="5" GridLines="Both" runat="server">
+                            <AlternatingRowStyle BackColor="#C8E3D4"/>
+                            <FooterStyle BackColor="#C8E3D4" ForeColor="Black"/>
+                            <HeaderStyle BackColor="#C8E3D4" ForeColor="Black" Font-Bold="true"/>
+                            <PagerStyle BackColor="#C8E3D4" ForeColor="Black" HorizontalAlign="Center"/>
+                            <SelectedRowStyle backColor="#161E54" ForeColor="Black" Font-Bold="true"/>
                             <SortedAscendingCellStyle BackColor="#C8E3D4" />
                             <SortedAscendingHeaderStyle BackColor="Yellow" />
                             <SortedDescendingCellStyle BackColor="#87AAAA" />
@@ -150,19 +158,20 @@
                 </tr>
 
                 <tr>
-                    <td class="auto-style11" colspan="2">&nbsp;</td>
+                    <td class="auto-style11" colspan="3">&nbsp;</td>
                     <td class="auto-style11">&nbsp;</td>
                 </tr>
             </table>
 
-        </div>
-        
-        <br />
-        <br />
-        <br />
+        </div>      
         <br />
 
-        <asp:GridView ID="gridTest" runat="server"></asp:GridView>
+        <asp:GridView ID="gridTest" align="center" class="auto-style12" runat="server">
+            <AlternatingRowStyle BackColor="#71a8a1"/>
+            <FooterStyle BackColor="#71a8a1" ForeColor="Black"/>
+            <HeaderStyle BackColor="#71a8a1" ForeColor="Black" Font-Bold="true"/>
+        </asp:GridView>
+
 
         <br />
         <br />
