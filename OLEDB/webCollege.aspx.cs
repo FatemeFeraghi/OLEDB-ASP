@@ -10,27 +10,24 @@ namespace OLEDB
 {
     public partial class webCollege : System.Web.UI.Page
     {
-        static OleDbConnection myConnection;
-        OleDbCommand myCommand;
-        OleDbDataReader readSchools;
-        OleDbDataReader readPrograms;
-        OleDbDataReader readCourses;
-        OleDbDataReader readStudents;
+        static OleDbConnection myCon;
+        OleDbDataReader myRd;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                myConnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Server.MapPath("~/App_Data/College2.mdb"));
-                myConnection.Open();
+                panCourse.Visible = panPrograms.Visible = false;
 
-                myCommand = new OleDbCommand("SELECT refSchool, Title FROM Schools ORDER BY Title", myConnection);
-                readSchools = myCommand.ExecuteReader();
+                myCon = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source =" + Server.MapPath("~/App_Data/College2.mdb"));
+                myCon.Open();
+                OleDbCommand myCmd = new OleDbCommand("Select refSchool, Title from Schools order by Title", myCon);
+                myRd = myCmd.ExecuteReader();
 
                 radlistSchool.DataTextField = "Title";
                 radlistSchool.DataValueField = "refSchool";
-                radlistSchool.DataSource = readSchools;
+                radlistSchool.DataSource = myRd;
                 radlistSchool.DataBind();
             }
 
@@ -38,50 +35,65 @@ namespace OLEDB
 
         protected void radlistSchool_SelectedIndexChanged(object sender, EventArgs e)
         {
-            myCommand = new OleDbCommand("SELECT refProgram, [Title] FROM Programs WHERE referSchool=@refSchool", myConnection);
-            myCommand.Parameters.AddWithValue("refSchool", radlistSchool.SelectedItem.Value);
+            panPrograms.Visible = true;
 
-            readPrograms = myCommand.ExecuteReader();
+            OleDbCommand myCmd = new OleDbCommand("SELECT refProgram, Title FROM Programs WHERE referSchool=@refS ORDER BY Title", myCon);
+            myCmd.Parameters.AddWithValue("refS", radlistSchool.SelectedItem.Value);
+            myRd = myCmd.ExecuteReader();
 
             radlstPrograms.DataTextField = "Title";
             radlstPrograms.DataValueField = "refProgram";
-            radlstPrograms.DataSource = readPrograms;
+            radlstPrograms.DataSource = myRd;
             radlstPrograms.DataBind();
+
+            chklstCourses.Items.Clear();
+            gridStudents.DataSource = null;
+            gridStudents.DataBind();
         }
 
         protected void radlstPrograms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            myCommand = new OleDbCommand("SELECT RefCourse, [Number] FROM Courses WHERE referProgram=@refProgram", myConnection);
-            myCommand.Parameters.AddWithValue("refProgram", radlstPrograms.SelectedItem.Value);
+            panCourse.Visible = true;
 
-            readCourses = myCommand.ExecuteReader();
+            OleDbCommand myCmd = new OleDbCommand("SELECT RefCourse,[Number] FROM Courses WHERE referProgram=@refP ORDER BY [Number]", myCon);
+            myCmd.Parameters.AddWithValue("refP", radlstPrograms.SelectedItem.Value);
+            myRd = myCmd.ExecuteReader();
 
             chklstCourses.DataTextField = "Number";
             chklstCourses.DataValueField = "RefCourse";
-            chklstCourses.DataSource = readCourses;
+            chklstCourses.DataSource = myRd;
             chklstCourses.DataBind();
+
+            gridStudents.DataSource = null;
+            gridStudents.DataBind();
+
         }
 
         protected void chklstCourses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            myCommand = new OleDbCommand("SELECT * FROM Students WHERE ReferCourse=@refCourse", myConnection);
-            myCommand.Parameters.AddWithValue("refCourse", chklstCourses.SelectedItem.Value);
-
-            readStudents = myCommand.ExecuteReader();
-
-            if (readStudents.Read())
+            if (chklstCourses.SelectedIndex > -1)
             {
-                chklstCourses.DataTextField = "Number";
-                chklstCourses.DataValueField = "RefCourse";
+                string sql = "SELECT StudentName AS [Names],BirthDate AS [Birth Dates],Telephone,Average,Email FROM Students WHERE ReferCourse = " + chklstCourses.SelectedItem.Value;
+                foreach (ListItem item in chklstCourses.Items)
+                {
+                    if (item.Selected)
+                    {
+                        sql += " or ReferCourse=" + item.Value;
+
+                    }
+                }
+                sql += " ORDER BY StudentName";
+                OleDbCommand myCmd = new OleDbCommand(sql, myCon);
+                myRd = myCmd.ExecuteReader();
+                gridStudents.DataSource = myRd;
+                gridStudents.DataBind();
+            }
+            else
+            {
+                gridStudents.DataSource = null;
+                gridStudents.DataBind();
             }
 
-            readStudents.Close();
-
-            myCommand.CommandText = "SELECT StudentName as [Names], BirthDate as [Birth Dates], Telephone, Average, Email from Students WHERE ReferCourse =@ref";
-
-            readStudents = myCommand.ExecuteReader();
-            gridStudents.DataSource = readStudents;
-            gridStudents.DataBind();
         }
 
         protected void gridStudents_SelectedIndexChanged(object sender, EventArgs e)
